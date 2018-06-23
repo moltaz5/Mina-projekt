@@ -16,19 +16,20 @@ speed(0)
 #r=right
 #m=middle
 
-ul=start_x, start_y
-um=start_x+100, start_y
-ur=start_x+200, start_y
-ml=start_x, start_y-100
-mm=start_x+100, start_y-100
-mr=start_x+200, start_y-100
-dl=start_x, start_y-200
-dm=start_x+100, start_y-200
-dr=start_x+200, start_y-200
+
+possible_choices={
+"ul":(start_x, start_y), "um":(start_x+100, start_y), "ur": (start_x+200, start_y),
+"ml":(start_x, start_y-100), "mm": (start_x+100, start_y-100),
+"mr":(start_x+200, start_y-100), "dl":(start_x, start_y-200),
+"dm":(start_x+100, start_y-200), "dr":(start_x+200, start_y-200)}
 
 
-winning_moves=[{ul, um, ur}, {ml, mm, mr}, {dl, dm, dr},
-               {ul, ml, dl}, {um, mm, dm}, {ur, mr, dr}]
+winning_moves=[{possible_choices["ul"], possible_choices["um"], possible_choices["ur"]},
+               {possible_choices["ml"], possible_choices["mm"], possible_choices["mr"]},
+               {possible_choices["dl"], possible_choices["dm"], possible_choices["dr"]},
+               {possible_choices["ul"], possible_choices["ml"], possible_choices["dl"]},
+               {possible_choices["um"], possible_choices["mm"], possible_choices["dm"]},
+               {possible_choices["ur"], possible_choices["mr"], possible_choices["dr"]}]
 
 
 
@@ -113,28 +114,27 @@ while True:
     print("Uppe vänster (up left) blir alltså 'ul'.")
     player_1_choices=[]
     player_2_choices=[]
-    choices=[ul, um, ur, ml, mm, mr, dl, dm, dr]
+    choices_left=possible_choices
 
     while True:
 
-        val_1=input("Spelare 1, välj en ruta: ")
-        print(val_1)
-        if val_1 not in choices:
+        val_1=possible_choices[input("Spelare 1, välj en ruta: ")]
+        if val_1 not in choices_left:
             print("Det där kan du tyvärr inte välja.")
             continue
-        elif val_1 in choices:
+        elif val_1 in choices_left:
             write_a_cross(val_1)
-            choices.remove(val_1)
+            choices_left.remove(val_1)
             
             player_1_choices.append(val_1)
 
-        val_2=input("Spelare 2, välj en ruta: ")
-        if val_2 not in choices:
+        val_2=possible_choices[input("Spelare 2, välj en ruta: ")]
+        if val_2 not in choices_left:
             continue
             print("Det där kan du tyvärr inte välja")
         else:
             write_a_circle(val_2)
-            choices.remove(val_2)
+            choices_left.remove(val_2)
             player_2_choices.append(val_2)
 
 
