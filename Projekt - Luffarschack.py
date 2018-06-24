@@ -125,23 +125,25 @@ while condition_1 and condition_2:
         if i in player_1_choices:
             print("Spelare 1 vann!")
             condition_1= False
+            break
         elif i in player_2_choices:
             print("Spelare 2 vann!")
             condition_2= False
+            break
     
 
-    while True:
+    while condition_1 and condition_2:
 
 
         for i in winning_moves:
             if i in player_1_choices:
                 print("Spelare 1 vann!")
                 condition_1= False
-                break
+                
             elif i in player_2_choices:
                 print("Spelare 2 vann!")
                 condition_2= False
-                break
+                
 
         
 
@@ -170,7 +172,7 @@ while condition_1 and condition_2:
 
 
 
-        while True:
+        while condition_1 and condition_2:
             val_2=input("Spelare 2, välj en ruta: ")
             if val_2 not in choices_left:
                 print("Det där kan du tyvärr inte välja")
@@ -185,5 +187,4 @@ while condition_1 and condition_2:
                 break
 
         
-
-
+print("Nu är spelet slut")
