@@ -25,12 +25,12 @@ possible_choices={
 "dm":(start_x+100, start_y-200), "dr":(start_x+200, start_y-200)}
 
 
-winning_moves=[{"ul", "um", "ur"},
-               {"ml", "mm", "mr"},
-               {"dl", "dm", "dr"},
-               {"ul", "ml", "dl"},
-               {"um", "mm", "dm"},
-               {"ur", "mr", "dr"}]
+winning_moves=[["ul", "um", "ur"],
+               ["ml", "mm", "mr"],
+               ["dl", "dm", "dr"],
+               ["ul", "ml", "dl"],
+               ["um", "mm", "dm"],
+               ["ur", "mr", "dr"]]
 
 
 
@@ -108,27 +108,29 @@ condition_2= True
 
 
 while condition_1 and condition_2:
-    print("Hej och välkomna till en omgång luffarschack!")
-    print("Först som får tre cirklar/kryss i rad vinner.")
+    print("Hej och välkomna till en omgång luffarschack!\n")
+    print("Först som får tre cirklar/kryss i rad vinner.\n")
     print("Kontrollerna fungerar som följer. Översätt upp, mitten, ned samt")
     print("vänster och höger till engelska och skriv sedan detta sammandraget.")
     print("Uppe vänster (up left) blir alltså 'ul'.")
     player_1_choices=[]
     player_2_choices=[]
     choices_left=possible_choices
+   
 
-    temp_set_1=set()
-    temp_set_2=set()    
-    
+
+    # Behöver jag verkligen detta blocket om jag har de 2 andra?
+    # Finns det "else" i både for- och while-loopar?
 
     for i in winning_moves:
-        if i in player_1_choices:
+        if i[0] in player_1_choices and i[1] in player_1_choices and i[2] in player_1_choices:
             print("Spelare 1 vann!")
             condition_1= False
             break
-        elif i in player_2_choices:
+    for i in winning_moves:
+        if i[0] in player_2_choices and i[1] in player_2_choices and i[2] in player_2_choices:
             print("Spelare 2 vann!")
-            condition_2= False
+            condition_1= False
             break
     
 
@@ -136,13 +138,17 @@ while condition_1 and condition_2:
 
 
         for i in winning_moves:
-            if i in player_1_choices:
+            print(i[0], i[1], i[2])
+            print(player_1_choices)
+            if i[0] in player_1_choices and i[1] in player_1_choices and i[2] in player_1_choices:
                 print("Spelare 1 vann!")
                 condition_1= False
-                
-            elif i in player_2_choices:
+                break
+        for i in winning_moves:
+            if i[0] in player_2_choices and i[1] in player_2_choices and i[2] in player_2_choices:
                 print("Spelare 2 vann!")
-                condition_2= False
+                condition_1= False
+                break
                 
 
         
@@ -154,20 +160,20 @@ while condition_1 and condition_2:
         elif val_1 in choices_left:
             write_a_cross(val_1)
             choices_left.pop(val_1)
-            if len(player_1_choices)>0:
-                player_1_choices.pop()
-            temp_set_1.add(val_1)
-            player_1_choices.append(temp_set_1)
+            player_1_choices.append(val_1)
 
 
 
         for i in winning_moves:
-            if i in player_1_choices:
+            if i[0] in player_1_choices and i[1] in player_1_choices and i[2] in player_1_choices:
                 print("Spelare 1 vann!")
                 condition_1= False
-            elif i in player_2_choices:
+                break
+        for i in winning_moves:
+            if i[0] in player_2_choices and i[1] in player_2_choices and i[2] in player_2_choices:
                 print("Spelare 2 vann!")
-                condition_2= False
+                condition_1= False
+                break
 
 
 
@@ -180,11 +186,23 @@ while condition_1 and condition_2:
             else:
                 write_a_circle(val_2)
                 choices_left.pop(val_2)
-                if len(player_1_choices)>0:
-                    player_1_choices.pop()
-                temp_set_2.add(val_2)
-                player_2_choices.append(temp_set_2)
+                player_2_choices.append(val_2)
                 break
 
         
 print("Nu är spelet slut")
+
+
+
+"""
+
+for i in winning_moves:
+            if i in player_1_choices:
+                print("Spelare 1 vann!")
+                condition_1= False
+                
+            elif i in player_2_choices:
+                print("Spelare 2 vann!")
+                condition_2= False
+"""
+
